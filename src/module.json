@@ -1,0 +1,22 @@
+{
+  "name": "pichku-service",
+  "pichku-service/style": {
+    "css": [
+      "../dist/css/style.css"
+    ]
+  },
+  "pichku-service/app": {
+    "js": [
+      "app.js"
+    ],
+    "on": [
+      "pichku-service/external/boot",
+      "pichku-service/external/service"
+    ]
+  },
+  "pichku-service/main": {
+    "js": [
+      "modules/main.js"
+    ]
+  }
+}

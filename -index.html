@@ -1,0 +1,26 @@
+<!doctype html>
+
+<head>
+    <title>Number to String</title>
+   </head>
+
+<body>
+    <div class="wrapper">
+       <input id="inputNumber"></input>
+       <button onclick="convert()"></button>
+    </div>
+    <div id="output"></div>
+    <script type="text/javascript" src="jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="spell.js"></script>
+    <script type="text/javascript">    
+        function convert(){
+            console.log(typeof($("#inputNumber").val()));
+            console.log(typeof(document.querySelector("#inputNumber").value));
+            var output  = spell($("#inputNumber").val());
+            $("#output").html(output);
+        }
+    </script>
+
+</body>
+    
+</html>

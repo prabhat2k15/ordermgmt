@@ -1,0 +1,36 @@
+{
+  "name": "promilbhardwaj/pichku",
+  "type": "project",
+  "minimum-stability": "dev",
+  "config": {
+    "vendor-dir": "lib"
+  },
+  "autoload": {
+    "psr-4": {
+      "app\\": "app/"
+    }
+  },
+  "require": {
+    "bootphp/functions": "dev-master",
+    "bootphp/rudrax": "dev-master",
+    "parichya/sso": "dev-master",
+    "vimeo/vimeo-api": "1.2.3",
+    "cloudinary/cloudinary_php": "^1.4",
+    "katzgrau/klogger": "dev-master",
+    "rudrax/disqus": "dev-master",
+    "rudrax/redbean": "dev-master",
+    "exeu/apai-io": "^1.10",
+    "guzzlehttp/guzzle": "^6.2",
+    "fabpot/goutte": "^3.2@dev",
+    "doctrine/cache": "1.6.x-dev",
+    "guzzle/plugin-cache": "^3.7@dev",
+    "kevinrob/guzzle-cache-middleware": "dev-master",
+    "psr/simple-cache": "^1.0@dev",
+    "elasticsearch/elasticsearch": "~5.0",
+    "bootphp/cache": "dev-master",
+    "instamojo/instamojo-php": "^0.3.0"
+  },
+  "require-dev": {
+    "victorjonsson/markdowndocs": "dev-master"
+  }
+}

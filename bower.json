@@ -1,0 +1,21 @@
+{
+  "name": "pichku-service",
+  "description": "",
+  "version": "0.1.0",
+  "homepage": "",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "cloudinary": "~2.1.4",
+    "bootswatch": "^3.3.7",
+    "bootstrap": "3.3.7",
+    "font-awesome": "fontawesome#~4.7.0",
+    "animate.css": "animate-css#3.5.2",
+    "jquery": "1.10.0"
+  },
+  "resolution": {
+    "bootstrap": "#3.3.7",
+    "font-awesome": "fontawesome#4.7.0"
+  },
+  "devDependencies": {}
+}
