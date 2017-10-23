@@ -4,6 +4,7 @@ namespace app\controller {
 
 use app\service\OrderService;
 use app\service\PayService;
+use \app\service\R;
     
     class OrderController extends AbstractController
     {
@@ -15,29 +16,29 @@ use app\service\PayService;
         public function placeOrder($order)
         {
         	$order='{
-				"uid": "2",
+				"uid": "1",
 				"product": [
 					{
 						"pid": 2,
 						"qty": 2,
 						"price": 1062,
-						"cod": false
+						"cod": true
 					},
 					{
-						"pid": 7,
+						"pid": 1,
 						"qty": 1,
 						"price": 759,
 						"cod": false
 					}
 				]
 			}';
-// MSDUXOQG
+
         	return OrderService::placeOrder(json_decode($order));
 
         }
 
  		/**
-         * @RequestMapping(url="order/showpay", method="GET", type="template")
+         * @RequestMapping(url="order/beforepay", method="GET", type="template")
          * @RequestParams(true)
          */
         public function beforepay($model,$orderid)
@@ -59,8 +60,6 @@ use app\service\PayService;
          */
         public function pay($orderid)
         {
-        	echo "paying";
-        	
         	return OrderService::pay($orderid);
 
         }
@@ -68,13 +67,26 @@ use app\service\PayService;
          * @RequestMapping(url="order/afterpay", method="GET", type="json")
          * @RequestParams(true)
          */
-        public function afterpay($payment_id, $payment_request_id)
+        public function afterpay($order_id,$payment_id, $payment_request_id)
         {
         	// $payment_id='MOJO7a13005A58691171';
         	// $payment_request_id='13d8204f080940eb837d442361e41445';
-        	echo $payment_id .'<br>'. $payment_request_id;
+        	// echo $payment_id .'<br>'. $payment_request_id;
 
-       	 return PayService::payStatus($payment_id, $payment_request_id);
+       	 $res = PayService::payStatus($payment_id, $payment_request_id);
+       	 // print_r($res);die;
+
+       	 $obean = R:: findOne('order','oid=?',[$order_id]);
+       	 $obean->payment_status=$res['status'];
+       	 $obean->paymentid=$payment_id;
+       	 $obean->paymentrequestid=$payment_request_id;
+       	 $obean->payment_at=R::isoDateTime();
+       	 R::store($obean);
+
+       	 return $res['status'];
+
+       	 
+
 
         }
 

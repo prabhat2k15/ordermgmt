@@ -13,6 +13,7 @@ namespace app\service {
        $oBean=R::dispense('order');
        $oBean->oid= 'MS'.Random::Alphabets(6);
        $oBean->uid=$order->uid;
+       $oBean->created_at=R::isoDateTime();
        $id = R::store($oBean);
 
        foreach ($order->product as $key => $pid) {
@@ -59,7 +60,7 @@ namespace app\service {
                  $r['suborder'][$i]['price']=$s->price;
                  $r['suborder'][$i]['qty']  =$s->qty;
                  $r['suborder'][$i]['cod']  =$s->cod;
-                 $amount+=$s->price * $s->qty;
+                 $amount+=$s->cod? 0 :$s->price * $s->qty;
                  $i++;
                }
                $r['amount']=$amount;
@@ -85,11 +86,12 @@ namespace app\service {
         }
       }
       echo $amount;
-      PayService::pg($amount);
+      return PayService::pg($amount,$orderid);
 
     }
 
-    public static function afterpay(){}
+    public static function afterpay($response)
+    {}
 
 
 
