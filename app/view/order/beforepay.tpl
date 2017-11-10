@@ -33,7 +33,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                {$count}
                      {for $i=0 to $count-1 }
                     
                     <tr>
@@ -43,17 +42,17 @@
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{$res->suborder[$i]->image}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="#">{$res->suborder[$i]->title}</a></h4>
-                                <h5 class="media-heading">  <a href="#">{$res->order_id}-{$res->suborder[$i]->suborder_id}</a></h5>
+                                <h5 class="media-heading">  <a href="#">{$res->order_id}-{$res->suborder[$i]->suborder_id}<img src="/src/image/logo/{$res->suborder[$i]->platform}.png" height="20" width="20"></a></h5>
                                 <span> </span><span class="text-success"><strong></strong></span>
                             </div>
                         </div></td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
-                        <input type="email" class="form-control" id="exampleInputEmail1" value="{$res->suborder[$i]->qty}">
+                        <input type="text" class="form-control" id="exampleInputEmail1" value="{$res->suborder[$i]->qty}" readonly>
                         </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>{$res->suborder[$i]->price}</strong></td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>{$res->suborder[$i]->price * $res->suborder[$i]->qty}</strong></td>
-                        <td class="col-sm-1 col-md-1">
-                       <td class="col-sm-1 col-md-1 text-center"><strong>{if $res->suborder[$i]->cod} COD{else}Online{/if}</td></td>
+                        <td class="col-sm-1 col-md-1">{if $res->suborder[$i]->cod} COD{else}Online{/if}
+                       <td class="col-sm-1 col-md-1 text-center"><strong></td></td>
                     </tr>
             {/for}
 

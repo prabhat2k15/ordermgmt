@@ -16,7 +16,7 @@ use Instamojo\Instamojo;
 	        "amount" => $amount,
 	        "send_email" => false,
 	        "email" => "prabhat2k15@gmail.com",
-	        "redirect_url" => "http://productservice.dev/order/afterpay?order_id=".$orderid
+	        "redirect_url" => "http://ordermgmt.dev/order/afterpay?order_id=".$orderid
 	        ));
 
 

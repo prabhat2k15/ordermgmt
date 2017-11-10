@@ -54,14 +54,14 @@
         		{$orders[$i]->user->email}
         		</h6> </td>
         <td><table>
-        {foreach $orders[$i]->order as $o}
+        {foreach $orders[$i]->suborder as $o}
         	<tr>
         	{if $o->status}
         	{assign var="failed" value="color:black;"}
         	{else}
         	{assign var="failed" value="color:red;"}
         	{/if}
-        		<td><h6 style="margin: 0;">{$o->soid}-{$o->pid}-{$o->title}<br>Rs.{$o->sp}</td>
+        		<td><h6 style="margin: 0;">{$o->suborder_id}-{$o->pid}-{$o->title}<br>Rs.{$o->price}</td>
         		<td><h6 style="margin: 0;{$failed}">{$o->platform}<br>{$o->platform_oid}</td>
         	</tr>
         {/foreach}	
