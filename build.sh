@@ -31,7 +31,7 @@ curl "http://www.pichku.com/?RX_MODE_DEBUG=true&RX_MODE_BUILD=1"
 ssh_connection='ubuntu@35.154.54.97'
 cd ~
 echo 'Making "orderservice.modestreet.in"..'
-mkdir -p productservicegz
+mkdir -p orderservicegz
 echo "Copying clone to orderservicegz.."
 cp -r clone/*  orderservicegz/
 echo "Compressing using tar.."
