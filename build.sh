@@ -5,7 +5,9 @@
 # You can use nvm to install any Node.js (or io.js) version you require.
 # nvm install 4.0
 # Install grunt-cli for running your tests or other tasks
+
 phpenv local 7.0
+
 #npm update
 #npm install -g grunt-cli
 #npm rebuild node-sass
