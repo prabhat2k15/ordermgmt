@@ -48,7 +48,7 @@ use Dompdf\Dompdf;
 		// //saving in directory
 		$pdf = $dompdf->output();
 		$filename='order'.time().'.pdf';
-		$file_location = $_SERVER['DOCUMENT_ROOT'].'src/image/pdf/'.$filename;
+		$file_location = $_SERVER['DOCUMENT_ROOT'].'/src/image/pdf/'.$filename;
 		file_put_contents($file_location,$pdf); 
 
 		// // Output the generated PDF to Browser
@@ -80,7 +80,7 @@ use Dompdf\Dompdf;
 			     $mail->addBCC('mstreet2k15@gmail.com');
 
 			    //Attachments
-			    $mail->addAttachment($_SERVER['DOCUMENT_ROOT'].'src/image/pdf/'.$filename);         // Add attachments
+			    $mail->addAttachment($_SERVER['DOCUMENT_ROOT'].'/src/image/pdf/'.$filename);         // Add attachments
 			    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
 			    //Content

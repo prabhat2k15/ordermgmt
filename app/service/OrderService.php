@@ -37,13 +37,18 @@ namespace app\service {
 
     public static function getOrder($oid)
     {
-            $order=R::findOne('order','oid=?',[$oid]);
+             $order=R::findOne('order','oid=?',[$oid]);
                 $r['id']=$order->id;
                 $r['order_id']=$order->oid;
-                $r['user']=R::load('customer',$order->uid);
+                list($date,$time)=explode(' ',$order->created_at);
+                $r['date']=$date;
+                $r['time']=$time;
+                $r['status']=$order->status;
+                $r['user']=$order->uid;//R::load('customer',$order->uid);
                $suborder=R::find('suborder','oid=?',array($order->id));
-
-               $i=0; $amount=0;
+               $i=0; 
+               $amount=0; 
+              
                foreach ($suborder as $s) 
                {
                  $r['suborder'][$i]['id']=$s->id;
@@ -67,9 +72,11 @@ namespace app\service {
                  $r['suborder'][$i]['status']=$s->cod;
                  $r['suborder'][$i]['platform']=$platform->title;
                  $amount+=$s->cod? 0 :$price->price * $s->qty;
+                 $totalamount+=$price->price * $s->qty;
                  $i++;
                }
                $r['amount']=$amount;
+               $r['totalamount']=$totalamount;
         //        echo '<pre>';
         // print_r(json_decode(json_encode($r))); die;
         return(json_decode(json_encode($r))); 

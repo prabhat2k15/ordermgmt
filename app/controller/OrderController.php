@@ -29,7 +29,7 @@ use \app\service\R;
         	$res=OrderService::getOrder($orderid);
             // echo '<pre>';
             // print_r($res);die;
-            if($order->amount<=0){
+            if($res->amount<=0){
                 $this->header('Location','afterpay?order_id='.$orderid.'&status=1');
             }else{
             	$model->assign('res',$res);
@@ -52,13 +52,13 @@ use \app\service\R;
          * @RequestMapping(url="order/afterpay", method="GET", type="json")
          * @RequestParams(true)
          */
-        public function afterpay($order_id,$payment_id, $payment_request_id,$status)
+        public function afterpay($order_id,$payment_id, $payment_request_id,$status=0)
         {
         	// $payment_id='MOJO7a24005A94920430';
         	// $payment_request_id='d29d28764ee14811b65f80fdf124fac1';
         	// echo $payment_id .'<br>'. $payment_request_id;
             if($status){
-                    $obean = R:: findOne('order','oid=?',[$order_id]);
+                    $obean = R::findOne('order','oid=?',[$order_id]);
                     $obean->payment_status='offline';
                     $obean->status=true;
                     $obean->payment_at=R::isoDateTime();
@@ -68,7 +68,7 @@ use \app\service\R;
 
                  if($res['payments'][0]['status']=='Credit')
                  {
-                    $obean = R:: findOne('order','oid=?',[$order_id]);
+                    $obean = R::findOne('order','oid=?',[$order_id]);
                     $obean->payment_status=$res['status'];
                     $obean->paymentid=$payment_id;
                     $obean->paymentrequestid=$payment_request_id;
@@ -91,7 +91,7 @@ use \app\service\R;
              
 
            	 MailService::mail($order_id);
-
+             $this->header('Location:','http://dev.modestreet.com/api/order/checkoutcallback?uid='.$obean->uid.'orderid='.$order_id.'&status='.$obean->status);
        	 return true;
 
 
@@ -121,7 +121,20 @@ use \app\service\R;
             return 'order/view';
         }
 
+        
+        /**
+         * @RequestMapping(url="order/getorder/{orderid}",type="json")
+         * @RequestParams(true)
+         */
+        public function getOrder($model=null,$orderid)
+        {
+            $orders = OrderService::getAllOrder(2,$orderid);
+            // echo count($orders);
+            // echo '<pre>';
+            // print_r($orders);die;
 
+            return $orders;
+        }
 
 
 
