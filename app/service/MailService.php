@@ -73,7 +73,7 @@ use Dompdf\Dompdf;
 
 			    //Recipients
 			    $mail->setFrom('info@modestreet.in', 'Modestreet');
-			    $mail->addAddress($res->user->email, $res->user->name);     // Add a recipient
+			    $mail->addAddress('mstreet2k15@gmail.com','Modestreet');//$res->user->email, $res->user->name);     // Add a recipient
 			    // $mail->addAddress('ellen@example.com');               // Name is optional
 			    // $mail->addReplyTo('info@example.com', 'Information');
 			    // $mail->addCC('cc@example.com');
