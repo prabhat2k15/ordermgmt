@@ -91,18 +91,11 @@ use \app\service\R;
              
 
            	 MailService::mail($order_id);
-             $this->header('Location:','http://dev.modestreet.com/api/order/checkoutcallback?uid='.$obean->uid.'orderid='.$order_id.'&status='.$obean->status);
+             header('Location:http://dev.modestreet.in/api/order/checkoutcallback?uid='.$obean->uid.'orderid='.$order_id.'&status='.$obean->status);
        	 return true;
 
 
         }
-
-
-
-
-
-
-
 
 
         /**

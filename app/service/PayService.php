@@ -22,8 +22,6 @@ use Instamojo\Instamojo;
 
             header("Location:".$response['longurl']);
 
-
-
 		}
 		catch (Exception $e) {
 	    print('Error: ' . $e->getMessage());
