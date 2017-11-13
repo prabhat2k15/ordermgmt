@@ -34,8 +34,7 @@ use \app\service\R;
             }else{
             	$model->assign('res',$res);
             	$model->assign('count',count($res->suborder));
-                $this->pay($orderid);
-            // return 'order/beforepay';
+            return 'order/beforepay';
             }
 
         }
@@ -140,7 +139,15 @@ use \app\service\R;
         {
 
             echo $_SERVER['DOCUMENT_ROOT'].'src/image/pdf/';
-           
+            // echo $order??"no odere";
+            // return $order??"no odere";
+            // die;
+
+        	// $order = $this->getOrder();
+
+        	// echo OrderService::saveOrder($order);
+
+        	// die;
         }
 
     }
