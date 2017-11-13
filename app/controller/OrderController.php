@@ -36,9 +36,8 @@ use \app\service\R;
             	$model->assign('count',count($res->suborder));
             return 'order/beforepay';
             }*/
-
-            $this->header('Location','afterpay?order_id='.$orderid.'&status=1');
-
+            header("location:http://orderservice.modestreet.in/order/afterpay?order_id=".$orderid."&status=1");
+            exit();
         }
 
         /**
