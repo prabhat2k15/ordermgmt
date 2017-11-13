@@ -29,13 +29,15 @@ use \app\service\R;
         	$res=OrderService::getOrder($orderid);
             // echo '<pre>';
             // print_r($res);die;
-            if($res->amount<=0){
+            /*if($res->amount<=0){
                 $this->header('Location','afterpay?order_id='.$orderid.'&status=1');
             }else{
             	$model->assign('res',$res);
             	$model->assign('count',count($res->suborder));
             return 'order/beforepay';
-            }
+            }*/
+
+            $this->header('Location','afterpay?order_id='.$orderid.'&status=1');
 
         }
 
