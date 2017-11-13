@@ -34,7 +34,6 @@ namespace app\service {
     }
 
 
-
     public static function getOrder($oid)
     {
              $order=R::findOne('order','oid=?',[$oid]);
@@ -236,70 +235,3 @@ if(isset($oid) || isset($soid))
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-stdClass Object
-(
-    [orders] => stdClass Object
-        (
-            [user] => stdClass Object
-                (
-                    [user_id] => prabhat2k15
-                    [name] => Prabhat Kumar
-                    [address_type] => Home
-                    [address] => C2
-                    [city] => Noida
-                    [state] => UP
-                    [pincode] => 201301
-                    [mobile] => 9835433153
-                )
-
-            [order] => stdClass Object
-                (
-                    [order_id] => AXIZW
-                    [0] => stdClass Object
-                        (
-                            [sub_order_id] => 1234
-                            [product_id] => 111
-                            [title] => Blue Jeans
-                            [selling_price] => 498
-                            [discount] => 40
-                            [platform] => Flipkart
-                            [platform_order_id] => BJJKJE1212
-                        )
-
-                    [1] => stdClass Object
-                        (
-                            [sub_order_id] => 1235
-                            [product_id] => 222
-                            [title] => Red Shirt
-                            [selling_price] => 1498
-                            [discount] => 20
-                            [platform] => Jabong
-                            [platform_order_id] => HKKHKKHKH76576
-                        )
-
-                )
-
-        )
-
-)
-*/
