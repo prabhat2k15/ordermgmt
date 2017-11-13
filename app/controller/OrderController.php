@@ -57,41 +57,41 @@ use \app\service\R;
         	// $payment_id='MOJO7a24005A94920430';
         	// $payment_request_id='d29d28764ee14811b65f80fdf124fac1';
         	// echo $payment_id .'<br>'. $payment_request_id;
-            // if($status){
-            //         $obean = R::findOne('order','oid=?',[$order_id]);
-            //         $obean->payment_status='offline';
-            //         $obean->status=true;
-            //         $obean->payment_at=R::isoDateTime();
-            //         R::store($obean);
-            // }else{
-            //     $res = PayService::payStatus($payment_id, $payment_request_id);
+            if($status){
+                    $obean = R::findOne('order','oid=?',[$order_id]);
+                    $obean->payment_status='offline';
+                    $obean->status=true;
+                    $obean->payment_at=R::isoDateTime();
+                    R::store($obean);
+            }else{
+                $res = PayService::payStatus($payment_id, $payment_request_id);
 
-            //      if($res['payments'][0]['status']=='Credit')
-            //      {
-            //         $obean = R::findOne('order','oid=?',[$order_id]);
-            //         $obean->payment_status=$res['status'];
-            //         $obean->paymentid=$payment_id;
-            //         $obean->paymentrequestid=$payment_request_id;
-            //         $obean->status=true;
-            //         $obean->payment_at=R::isoDateTime();
-            //         R::store($obean);
-            //     }
-            // }
+                 if($res['payments'][0]['status']=='Credit')
+                 {
+                    $obean = R::findOne('order','oid=?',[$order_id]);
+                    $obean->payment_status=$res['status'];
+                    $obean->paymentid=$payment_id;
+                    $obean->paymentrequestid=$payment_request_id;
+                    $obean->status=true;
+                    $obean->payment_at=R::isoDateTime();
+                    R::store($obean);
+                }
+            }
            	 
 
-            //     // $sobean=R::dispense('suborder','oid=?',[$obean->id]);
-            //     // print_r($sobean);die;
-            //     // foreach ($sobean as $so) {
-            //     //     if(!$so->cod){
-            //     //         $o->status=1;
-            //     //         echo 'status='.$o->status;die;
-            //     //     }
-            //     //      R::store($so);
-            //     // }
+                // $sobean=R::dispense('suborder','oid=?',[$obean->id]);
+                // print_r($sobean);die;
+                // foreach ($sobean as $so) {
+                //     if(!$so->cod){
+                //         $o->status=1;
+                //         echo 'status='.$o->status;die;
+                //     }
+                //      R::store($so);
+                // }
              
 
-           	//  MailService::mail($order_id);
-             header('location:http://dev.modestreet.in/api/order/checkoutcallback?uid=1orderid=1&status=1');
+           	 MailService::mail($order_id);
+             header('Location:http://dev.modestreet.in/api/order/checkoutcallback?uid='.$obean->uid.'orderid='.$order_id.'&status='.$obean->status);
        	 return true;
 
 
