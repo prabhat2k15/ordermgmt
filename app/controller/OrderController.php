@@ -40,6 +40,11 @@ use \app\service\R;
             // return 'order/beforepay';
             }
 
+            return 'order/beforepay';
+            }
+            header("location:http://orderservice.modestreet.in/order/afterpay?order_id=".$orderid."&status=1");
+            exit();
+
         }
 
         /**
@@ -134,7 +139,15 @@ use \app\service\R;
         {
 
             echo $_SERVER['DOCUMENT_ROOT'].'src/image/pdf/';
-           
+            // echo $order??"no odere";
+            // return $order??"no odere";
+            // die;
+
+        	// $order = $this->getOrder();
+
+        	// echo OrderService::saveOrder($order);
+
+        	// die;
         }
 
     }
