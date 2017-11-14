@@ -6,7 +6,7 @@ use Instamojo\Instamojo;
   class PayService
   {
 
-    public  function pg($amount,$orderid)//PLCAE ORDER
+    public function pg($amount,$orderid)//PLCAE ORDER
     {
     	$api=new Instamojo('73ff3363ba9eb79ef8da85266f7e3089', 'f3f10b7f9be4b69906421cd564d4039f', 'https://test.instamojo.com/api/1.1/');
 
