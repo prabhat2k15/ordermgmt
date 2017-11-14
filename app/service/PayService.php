@@ -15,7 +15,9 @@ use Instamojo\Instamojo;
 	        "purpose" => "MS Purchase",
 	        "amount" => $amount,
 	        "send_email" => false,
-	        "email" => "",
+	        "email" => "prabhat2k15@gmail.com",
+	        "phone" => "8083110443",
+	        "buyer_name" => "Prabhat Kumar",
 	        "redirect_url" => "http://orderservice.modestreet.in/order/afterpay?order_id=".$orderid
 	        ));
 
