@@ -35,6 +35,7 @@ use \app\service\R;
             }else{
                 $model->assign('res',$res);
                 $model->assign('count',count($res->suborder));
+//              //header('Location:http://orderservice.modestreet.in/order/afterpay?order_id='.$orderid.'&status=0');
 
         $this->pay($orderid);
             }
@@ -57,8 +58,8 @@ use \app\service\R;
         {
                 // $payment_id='MOJO7a24005A94920430';
                 // $payment_request_id='d29d28764ee14811b65f80fdf124fac1';
-                // echo $payment_id .'<br>'. $payment_request_id;
-            // echo 'status='.$status.$order_id;
+                echo $payment_id .'<br>'. $payment_request_id;
+            echo 'status='.$status.$order_id;
             // die;
             if($status==1){
                     $obean = R::findOne('order','oid=?',[$order_id]);
@@ -82,9 +83,9 @@ use \app\service\R;
             }
 
                  MailService::mail($order_id);
-            header('Location:http://orderservice.modestreet.in/order/save?uid='.$obean->uid.'&orderid='.$order_id.'&status='.$obean->status);
-
-        return true;
+            header('Location:http://dev.modestreet.in/api/order/checkoutcallback?uid='.$obean->uid.'&orderid='.$order_id.'&status='.$obean->status);
+ 
+        //return true;
 
 
         }
