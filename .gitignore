@@ -11,4 +11,4 @@
 composer.lock
 src/external/components
 config
-src/image/pdf/
+src/image/pdf

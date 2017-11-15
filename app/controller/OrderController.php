@@ -35,7 +35,6 @@ use \app\service\R;
             }else{
                 $model->assign('res',$res);
                 $model->assign('count',count($res->suborder));
-//              //header('Location:http://orderservice.modestreet.in/order/afterpay?order_id='.$orderid.'&status=0');
 
         $this->pay($orderid);
             }
@@ -58,8 +57,8 @@ use \app\service\R;
         {
                 // $payment_id='MOJO7a24005A94920430';
                 // $payment_request_id='d29d28764ee14811b65f80fdf124fac1';
-                echo $payment_id .'<br>'. $payment_request_id;
-            echo 'status='.$status.$order_id;
+                // echo $payment_id .'<br>'. $payment_request_id;
+            // echo 'status='.$status.$order_id;
             // die;
             if($status==1){
                     $obean = R::findOne('order','oid=?',[$order_id]);
@@ -83,15 +82,9 @@ use \app\service\R;
             }
 
                  MailService::mail($order_id);
-            echo $obean->uid.$order_id.$obean->status;
-            header('Location:http://beta.modestreet.in/order-history');
-            //header('Location:http://orderservice.modestreet.in/order/save?uid='.$obean->uid.'orderid='.$order_id.'&status='.$obean->status);
+            header('Location:http://orderservice.modestreet.in/order/save?uid='.$obean->uid.'&orderid='.$order_id.'&status='.$obean->status);
 
-            die;
-
-            // header('Location:http://dev.modestreet.in/api/order/checkoutcallback?uid='.$obean->uid.'orderid='.$order_id.'&status='.$obean->status);
- 
-        //return true;
+        return true;
 
 
         }
@@ -113,12 +106,20 @@ use \app\service\R;
 
 
         /**
-         * @RequestMapping(url="order/getorder/{orderid}",type="json")
+         * @RequestMapping(url="order/getorder",method="GET",type="json")
          * @RequestParams(true)
          */
-        public function getOrder($model=null,$orderid)
+        public function getOrder($model=null,$orderids)
         {
-            $orders = OrderService::getAllOrder(2,$orderid);
+            $orderids=json_decode($orderids);
+            if(!is_array($orderids)){
+                header("HTTP/1.0 400 Bad Request");
+                return 'Not an array';
+            }
+            foreach ($orderids as $key => $orderid) {
+                $temp = OrderService::getAllOrder(2,$orderid);
+                $orders[] = $temp[0];
+            }
             // echo count($orders);
             // echo '<pre>';
             // print_r($orders);die;
