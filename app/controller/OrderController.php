@@ -6,7 +6,7 @@ use app\service\OrderService;
 use app\service\PayService;
 use app\service\MailService;
 use \app\service\R;
-    
+
     class OrderController extends AbstractController
     {
 
@@ -58,7 +58,7 @@ use \app\service\R;
         {
                 // $payment_id='MOJO7a24005A94920430';
                 // $payment_request_id='d29d28764ee14811b65f80fdf124fac1';
-                echo $payment_id .'<br>'. $payment_request_id;
+            echo $payment_id .'<br>'. $payment_request_id;
             echo 'status='.$status.$order_id;
             // die;
             if($status==1){
@@ -84,7 +84,7 @@ use \app\service\R;
 
                  MailService::mail($order_id);
             header('Location:http://dev.modestreet.in/api/order/checkoutcallback?uid='.$obean->uid.'&orderid='.$order_id.'&status='.$obean->status);
- 
+
         //return true;
 
 
@@ -110,8 +110,10 @@ use \app\service\R;
          * @RequestMapping(url="order/getorder",method="GET",type="json")
          * @RequestParams(true)
          */
-        public function getOrder($model=null,$orderids)
+        public function getOrder($orderids)
         {
+          $orderids = array("MSXNCXMU","MSWLMJTK");//local
+          $orderids=json_encode($orderids);
             $orderids=json_decode($orderids);
             if(!is_array($orderids)){
                 header("HTTP/1.0 400 Bad Request");
@@ -131,7 +133,7 @@ use \app\service\R;
          * @RequestMapping(url="order/save", method="GET", type="json")
          * @RequestParams(true)
          */
-        public function saveOrder($uid,$orderid,$status) 
+        public function saveOrder($uid,$orderid,$status)
         {
             echo $_SERVER['DOCUMENT_ROOT'].'src/image/pdf/';
             // echo $order??"no odere";
@@ -153,7 +155,7 @@ use \app\service\R;
 
 /*        	$order='{
 						"orders": {
-							
+
 							"order_id": "IYIU324",
 
 							"user": {

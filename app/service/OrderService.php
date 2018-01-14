@@ -4,7 +4,7 @@ namespace app\service {
 
   class OrderService
   {
-   
+
 
     public static function placeOrder($order)//PLACE ORDER
     {
@@ -28,9 +28,9 @@ namespace app\service {
          $soBean->status=$pid->cod;
          R::store($soBean);
        }
-      
 
-       return $oBean->oid; 
+
+       return $oBean->oid;
     }
 
 
@@ -45,10 +45,10 @@ namespace app\service {
                 $r['status']=$order->status;
                 $r['user']=$order->uid;//R::load('customer',$order->uid);
                $suborder=R::find('suborder','oid=?',array($order->id));
-               $i=0; 
-               $amount=0; 
-              
-               foreach ($suborder as $s) 
+               $i=0;
+               $amount=0;
+
+               foreach ($suborder as $s)
                {
                  $r['suborder'][$i]['id']=$s->id;
                  $r['suborder'][$i]['suborder_id']=$s->soid;
@@ -60,8 +60,13 @@ namespace app\service {
                  $source=R::load('source',$s->pid);
                  $price=R::load('price',$source->priceid);
                  $platform=R::load('host',$source->hostid);
-                 
-                 $r['suborder'][$i]['pid']  =$s->id;
+                 $subproduct=R::load('subproduct',1);
+                 $superproduct=R::load('superproduct',$subproduct->sid);
+                 print_r($subproduct);
+                 print_r($superproduct);
+
+                 $r['suborder'][$i]['pid']  =$s->subid;
+                 $r['suborder'][$i]['sourceid']  =$source->id;
                  $r['suborder'][$i]['title']=$source->title;
                  $r['suborder'][$i]['image']=$source->image;
                  $r['suborder'][$i]['description']=$source->description;
@@ -70,6 +75,7 @@ namespace app\service {
                  $r['suborder'][$i]['cod']  =$s->cod;
                  $r['suborder'][$i]['status']=$s->cod;
                  $r['suborder'][$i]['platform']=$platform->title;
+                 $r['suborder'][$i]['brand']=$superproduct->brand;
                  $amount+=$s->cod? 0 :$price->price * $s->qty;
                  $totalamount+=$price->price * $s->qty;
                  $i++;
@@ -78,7 +84,7 @@ namespace app\service {
                $r['totalamount']=$totalamount;
         //        echo '<pre>';
         // print_r(json_decode(json_encode($r))); die;
-        return(json_decode(json_encode($r))); 
+        return(json_decode(json_encode($r)));
     }
 
 
@@ -86,19 +92,19 @@ namespace app\service {
 
     public static function pay($orderid)
     {
-      // echo $orderid.'processsing';
-      // die;
       $oBean=R::findOne('order','oid=?',[$orderid]);
       $soBean=R::find('suborder','oid=?',[$oBean->id]);
       $amount=0;
       foreach ($soBean as $so) {
         $source=R::load('source',$so->pid);
         $price=R::load('price',$source->priceid);
+        /*-----------------------------
+          save the price in the db here
+        ------------------------------*/
         if(!$so->cod){
           $amount+= $price->price * $so->qty;
         }
       }
-      // echo $amount; die;
       return PayService::pg($amount,$orderid);
 
     }
@@ -124,15 +130,15 @@ namespace app\service {
           // print_r($order);die;
           return $orders;
 
-        }else if(!empty(trim($oid)) && empty(trim($soid))){   
-          $orders[]=self::getOrder($oid); 
+        }else if(!empty(trim($oid)) && empty(trim($soid))){
+          $orders[]=self::getOrder($oid);
           return $orders;
         }
       }
       switch($qr)
       {
             /* 1.Successful order
-               0.Failed order 
+               0.Failed order
          default.All orders */
         case 1:
         case 0: $order=R::find('order');
@@ -151,11 +157,11 @@ namespace app\service {
                   $orders[]=$temp;
                   }
                 }
-                
+
                    // echo '<pre>';
                    //  print_r($orders); die;
-                 
-               return $orders; 
+
+               return $orders;
 
               break;
        default:
@@ -186,15 +192,15 @@ namespace app\service {
 if(isset($oid) || isset($soid))
       {
         if(!empty(trim($oid)) && empty(trim($soid)))
-        {   
-          $orders[]=self::getOrder($oid); 
+        {
+          $orders[]=self::getOrder($oid);
           return $orders;
         }
         if(!empty(trim($soid)))
         {
           $suborder=R::findOne('suborder','soid=?',[$soid]);
           $order=R::load('order',$suborder->oid);
-          
+
           print_r($order);die;
 
           return (json_decode(json_encode($r)));
@@ -203,12 +209,12 @@ if(isset($oid) || isset($soid))
       switch($qr)
       {
         /* 1.Successful order
-           0.Failed order 
+           0.Failed order
      default.All orders */
 /*        case 1:
         case 0: $order=R::find('order');
-            $i=0; 
-            foreach ($order as $o) 
+            $i=0;
+            foreach ($order as $o)
             {
               if(R::findOne('suborder','status=? AND oid=?',array($qr,$o->id)))
               {
@@ -217,7 +223,7 @@ if(isset($oid) || isset($soid))
                 $r[$i]['user']=R::load('customer',$o->uid);
                 $r[$i]['order']=R::find('suborder','oid=? AND status=?',array($o->id,$qr));
                 $i++;
-              } 
+              }
             }
               break;
       default:$order=R::find('order');
@@ -232,6 +238,3 @@ if(isset($oid) || isset($soid))
       }
 
       return (json_decode(json_encode($r)));*/
-
-
-
